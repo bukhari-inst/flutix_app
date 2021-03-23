@@ -30,6 +30,20 @@ class MyApp extends StatelessWidget {
                   } else {
                     print(result.user.toString());
                   }
+                }),
+            ElevatedButton(
+                child: Text("Sign In"),
+                onPressed: () async {
+                  SignInSignUpResult result = await AuthServices.signIn(
+                    "ariel@noah.com",
+                    "1234567",
+                  );
+
+                  if (result.user == null) {
+                    print(result.message);
+                  } else {
+                    print(result.user.toString());
+                  }
                 })
           ],
         )),
