@@ -77,18 +77,27 @@ class _SignUpPageState extends State<SignUpPage> {
                           decoration: BoxDecoration(
                               shape: BoxShape.circle,
                               image: DecorationImage(
-                                  image:
-                                      (widget.registrationData.profileImage ==
-                                              null)
-                                          ? AssetImage("assets/user_pic.png")
-                                          : FileImage(widget
-                                              .registrationData.profileImage))),
+                                  image: (widget
+                                              .registrationData.profileImage ==
+                                          null)
+                                      ? AssetImage("assets/user_pic.png")
+                                      : FileImage(
+                                          widget.registrationData.profileImage),
+                                  fit: BoxFit.cover)),
                         ),
                         Align(
                           alignment: Alignment.bottomCenter,
                           child: GestureDetector(
-                            onTap: () {
-                              // todo: Ambil File PP
+                            onTap: () async {
+                              if (widget.registrationData.profileImage ==
+                                  null) {
+                                widget.registrationData.profileImage =
+                                    await getImage();
+                              } else {
+                                widget.registrationData.profileImage = null;
+                              }
+
+                              setState(() {});
                             },
                             child: Container(
                               height: 28,
@@ -158,7 +167,47 @@ class _SignUpPageState extends State<SignUpPage> {
                       child: Icon(Icons.arrow_forward),
                       backgroundColor: mainColor,
                       elevation: 0,
-                      onPressed: () {})
+                      onPressed: () {
+                        if (!(nameController.text.trim() != "" &&
+                            emailController.text.trim() != "" &&
+                            passwordController.text.trim() != "" &&
+                            retypePasswordController.text.trim() != "")) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            backgroundColor: Color(0xFFFF5C83),
+                            message: "Please fill all the field!",
+                          )..show(context);
+                        } else if (passwordController.text !=
+                            retypePasswordController.text) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            message:
+                                "Mismatch password and confirmed password!",
+                          )..show(context);
+                        } else if (passwordController.text.length < 6) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            message: "Password's length min 6 characters!",
+                          )..show(context);
+                        } else if (!EmailValidator.validate(
+                            emailController.text)) {
+                          Flushbar(
+                            duration: Duration(milliseconds: 1500),
+                            flushbarPosition: FlushbarPosition.TOP,
+                            message: "Wrong formated email address!",
+                          )..show(context);
+                        } else {
+                          widget.registrationData.name = nameController.text;
+                          widget.registrationData.email = emailController.text;
+                          widget.registrationData.password =
+                              passwordController.text;
+
+                          // todo: go to preference page
+                        }
+                      })
                 ],
               )
             ],
