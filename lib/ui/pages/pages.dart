@@ -1,6 +1,7 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutix_app/bloc/blocs.dart';
+import 'package:flutix_app/models/models.dart';
 import 'package:flutix_app/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutix_app/shared/shared.dart';
@@ -17,3 +18,6 @@ part 'wrapper.dart';
 part 'main_page.dart';
 part 'splash_page.dart';
 part 'movie_page.dart';
+part 'sign_up_page.dart';
+part 'preference_page.dart';
+part 'account_confirmation_page.dart';
