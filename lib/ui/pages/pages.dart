@@ -7,6 +7,7 @@ import 'package:flutix_app/models/models.dart';
 import 'package:flutix_app/services/services.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutix_app/shared/shared.dart';
+import 'package:flutix_app/ui/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
