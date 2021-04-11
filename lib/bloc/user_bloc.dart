@@ -24,8 +24,11 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       yield UserInitial();
     } else if (event is UpdateData) {
       User updatedUser = (state as UserLoaded)
+          // update profile picture di UI
           .user
           .copyWith(name: event.name, profilePicture: event.profileImage);
+      // update profile picture in firebase
+      await UserServices.updateUser(updatedUser);
       yield UserLoaded(updatedUser);
     }
   }
