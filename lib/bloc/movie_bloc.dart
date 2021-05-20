@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:flutix_app/models/models.dart';
 import 'package:flutix_app/services/services.dart';
+import 'package:equatable/equatable.dart';
 
 part 'movie_event.dart';
 part 'movie_state.dart';
