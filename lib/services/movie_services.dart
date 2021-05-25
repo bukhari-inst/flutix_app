@@ -40,10 +40,10 @@ class MovieServices {
       case 'id':
         language = "Indonesian";
         break;
-      case 'ja':
+      case 'ko':
         language = "Korean";
         break;
-      case 'ja':
+      case 'en':
         language = "English";
         break;
     }
