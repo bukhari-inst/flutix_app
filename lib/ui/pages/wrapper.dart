@@ -31,8 +31,8 @@ class Wrapper extends StatelessWidget {
                         : (pageState is OnAccountConfirmationPage)
                             ? AccountConfirmationPage(
                                 pageState.registrationData)
-                            : (PageState is OnMovieDetailPage)
-                                ? MovieDetailPage(pageState.)
+                            : (pageState is OnMovieDetailPage)
+                                ? MovieDetailPage(pageState.movie)
                                 : MainPage());
   }
 }
