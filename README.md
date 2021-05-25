@@ -1,2 +1,2 @@
 # flutix_app
- flutter app
+ Flutter App. Aplikasi Penjualan Tiket Bioskop.
