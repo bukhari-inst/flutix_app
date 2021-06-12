@@ -119,6 +119,7 @@ class MoviePage extends StatelessWidget {
                                   : 16),
                           child: MovieCard(
                             movies[index],
+                            // ! OnTap
                             onTap: () {
                               context
                                   .bloc<PageBloc>()
