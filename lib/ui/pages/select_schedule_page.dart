@@ -12,6 +12,10 @@ class SelectSchedulePage extends StatefulWidget {
 class _SelectSchedulePageState extends State<SelectSchedulePage> {
   List<DateTime> dates;
   DateTime selectedDate;
+  // untuk ngecek bahwa jam yg dipilih hari dan jam hari ini
+  int selectedTime;
+  Theater selectedTheater;
+  bool isValid = false; // untuk ngecek apkah sdh pilih tnggal & wktunya
 
   @override
   void initState() {
@@ -92,11 +96,82 @@ class _SelectSchedulePageState extends State<SelectSchedulePage> {
                             });
                           }),
                         )),
-              )
+              ),
+              // note: CHOOSE TIME
+              generateTimeTable(),
+              // note: NEXT BUTTON
+              SizedBox(
+                height: 10,
+              ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: FloatingActionButton(
+                  elevation: 0,
+                  backgroundColor: (isValid) ? mainColor : Color(0xFFE4E4E4),
+                  child: Icon(
+                    Icons.arrow_forward,
+                    color: isValid ? Colors.white : Color(0xFFBEBEBE),
+                  ),
+                  onPressed: () {},
+                ),
+              ),
+              SizedBox(
+                height: 41,
+              ),
             ],
           )
         ]),
       ),
+    );
+  }
+
+  // fungsi generateTimeTable
+  Column generateTimeTable() {
+    // mulai jam 10 pgi - 10 malam, jeda setiap 2 jam
+    List<int> schedule = List.generate(7, (index) => 10 + index * 2);
+    List<Widget> widgets = [];
+
+    for (var theater in dummyTheater) {
+      widgets.add(Container(
+          margin: EdgeInsets.fromLTRB(defaultMargin, 0, defaultMargin, 16),
+          child:
+              Text(theater.name, style: blackTextFont.copyWith(fontSize: 20))));
+
+      widgets.add(Container(
+        height: 50,
+        margin: EdgeInsets.only(bottom: 20),
+        child: ListView.builder(
+            itemCount: schedule.length,
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (_, index) => Container(
+                  margin: EdgeInsets.only(
+                      left: (index == 0) ? defaultMargin : 0,
+                      right:
+                          (index < schedule.length - 1) ? 16 : defaultMargin),
+                  child: SelectableBox(
+                    "${schedule[index]}:00",
+                    height: 50,
+                    // untuk ngecek apkah sdh pilih tnggal & wktunya
+                    isSelected: selectedTheater == theater &&
+                        selectedTime == schedule[index],
+                    // spya yg dipilih waktu stelah saat ini
+                    isEnabled: schedule[index] > DateTime.now().hour ||
+                        selectedDate.day != DateTime.now().day,
+                    onTap: () {
+                      setState(() {
+                        selectedTheater = theater;
+                        selectedTime = schedule[index];
+                        isValid = true;
+                      });
+                    },
+                  ),
+                )),
+      ));
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: widgets,
     );
   }
 }
