@@ -64,7 +64,7 @@ class GoToSelectSchedulePage extends PageEvent {
   List<Object> get props => [movieDetail];
 }
 
-class GoToSelectSeatPage extends PageState {
+class GoToSelectSeatPage extends PageEvent {
   final Ticket ticket;
 
   GoToSelectSeatPage(this.ticket);
