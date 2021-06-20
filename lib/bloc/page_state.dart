@@ -61,14 +61,12 @@ class OnMovieDetailPage extends PageState {
 }
 
 class OnSelectSchedulePage extends PageState {
-  final MovieDetail movieDetaill;
+  final MovieDetail movieDetail;
 
-  OnSelectSchedulePage(this.movieDetaill);
+  OnSelectSchedulePage(this.movieDetail);
 
   @override
-  List<Object> get props => [movieDetaill];
-
-  MovieDetail get movieDetail => null;
+  List<Object> get props => [movieDetail];
 }
 
 class OnSelectSeatPage extends PageState {

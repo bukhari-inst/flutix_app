@@ -2,14 +2,14 @@ part of 'models.dart';
 
 class Ticket extends Equatable {
   final MovieDetail movieDetail;
-  final Theater theather;
+  final Theater theater;
   final DateTime time;
   final String bookingCode;
   final List<String> seats;
   final String name;
   final int totalPrice;
 
-  Ticket(this.movieDetail, this.theather, this.time, this.bookingCode,
+  Ticket(this.movieDetail, this.theater, this.time, this.bookingCode,
       this.seats, this.name, this.totalPrice);
 
   Ticket copyWith(
@@ -22,14 +22,13 @@ class Ticket extends Equatable {
           int totalPrice}) =>
       Ticket(
           movieDetail ?? this.movieDetail,
-          theather ?? this.theather,
+          theater ?? this.theater,
           time ?? this.time,
           bookingCode ?? this.bookingCode,
           seats ?? this.seats,
           name ?? this.name,
           totalPrice ?? this.totalPrice);
 
-  // getter nomor bangku
   String get seatsInString {
     String s = '';
 
@@ -42,5 +41,5 @@ class Ticket extends Equatable {
 
   @override
   List<Object> get props =>
-      [movieDetail, theather, time, bookingCode, seats, name, totalPrice];
+      [movieDetail, theater, time, bookingCode, seats, name, totalPrice];
 }
