@@ -10,6 +10,8 @@ class SelectSeatPage extends StatefulWidget {
 }
 
 class _SelectSeatPageState extends State<SelectSeatPage> {
+  List<String> selectedSeats = [];
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -90,7 +92,29 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
                               image: AssetImage("assets/screen.png")))),
 
                   // ! note: SEATS
-                  generateSeats()
+                  generateSeats(),
+                  // ! note: NEXT BUTTON
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: FloatingActionButton(
+                        elevation: 0,
+                        backgroundColor: selectedSeats.length > 0
+                            ? mainColor
+                            : Color(0xFFE4E4E4),
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: selectedSeats.length > 0
+                              ? Colors.white
+                              : Color(0xFFBEBEBE),
+                        ),
+                        onPressed: () {}),
+                  ),
+                  SizedBox(
+                    height: 50,
+                  ),
                 ])
               ],
             )
@@ -112,9 +136,26 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
                   padding: EdgeInsets.only(
                       right: index < numberofSeats[i] - 1 ? 16 : 0, bottom: 16),
                   child: SelectableBox(
-                    "A",
+                    "${String.fromCharCode(i + 65)}${index + 1}", // using code ascii
                     width: 40,
                     height: 40,
+                    textStyle:
+                        whiteNumberTextFont.copyWith(color: Colors.black),
+                    isSelected: selectedSeats
+                        .contains("${String.fromCharCode(i + 65)}${index + 1}"),
+                    onTap: () {
+                      String seatNumber =
+                          "${String.fromCharCode(i + 65)}${index + 1}";
+                      setState(() {
+                        if (selectedSeats.contains(seatNumber)) {
+                          selectedSeats.remove(
+                              seatNumber); //jika kursinya sudah kepilih diremove
+                        } else {
+                          selectedSeats.add(seatNumber);
+                        }
+                      });
+                    },
+                    isEnabled: index != 0,
                   ),
                 )),
       ));
