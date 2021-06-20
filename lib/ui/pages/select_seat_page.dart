@@ -29,6 +29,7 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
                 Column(children: <Widget>[
                   // ! note: Header
                   Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       Container(
@@ -52,10 +53,15 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
                         child: Row(
                           children: <Widget>[
                             Container(
+                                margin: EdgeInsets.only(right: 16),
                                 width: MediaQuery.of(context).size.width *
                                     0.5, // posisi text stengah layar
                                 child: Text(
                                   widget.ticket.movieDetail.title,
+                                  style: blackTextFont.copyWith(fontSize: 20),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.clip,
+                                  textAlign: TextAlign.end,
                                 )),
                             Container(
                               width: 60,
@@ -73,10 +79,47 @@ class _SelectSeatPageState extends State<SelectSeatPage> {
                       )
                     ],
                   ),
+
+                  // ! note: CINEMA SCREEN
+                  Container(
+                      margin: EdgeInsets.only(top: 30),
+                      width: 277,
+                      height: 84,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage("assets/screen.png")))),
+
+                  // ! note: SEATS
+                  generateSeats()
                 ])
               ],
             )
           ]),
         ));
+  }
+
+  // fungsi generate seats
+  Column generateSeats() {
+    List<int> numberofSeats = [3, 5, 5, 5, 5];
+    List<Widget> widgets = [];
+
+    for (int i = 0; i < numberofSeats.length; i++) {
+      widgets.add(Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: List.generate(
+            numberofSeats[i],
+            (index) => Padding(
+                  padding: EdgeInsets.only(
+                      right: index < numberofSeats[i] - 1 ? 16 : 0, bottom: 16),
+                  child: SelectableBox(
+                    "A",
+                    width: 40,
+                    height: 40,
+                  ),
+                )),
+      ));
+    }
+
+    return Column(children: widgets);
   }
 }
