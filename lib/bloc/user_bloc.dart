@@ -30,6 +30,36 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       // update profile picture in firebase
       await UserServices.updateUser(updatedUser);
       yield UserLoaded(updatedUser);
+    } else if (event is TopUp) {
+      // untuk topup
+      // UserLoaded: kita pstikan sudah ada usernya
+      if (state is UserLoaded) {
+        try {
+          User updateUser = (state as UserLoaded).user.copyWith(
+              balance: (state as UserLoaded).user.balance + event.amount);
+
+          await UserServices.updateUser(updateUser);
+
+          yield UserLoaded(updateUser);
+        } catch (e) {
+          print(e);
+        }
+      }
+    } else if (event is Purchase) {
+      //untuk beli tiket
+      // UserLoaded: kita pstikan sudah ada usernya
+      if (state is UserLoaded) {
+        try {
+          User updateUser = (state as UserLoaded).user.copyWith(
+              balance: (state as UserLoaded).user.balance - event.amount);
+
+          await UserServices.updateUser(updateUser);
+
+          yield UserLoaded(updateUser);
+        } catch (e) {
+          print(e);
+        }
+      }
     }
   }
 }
