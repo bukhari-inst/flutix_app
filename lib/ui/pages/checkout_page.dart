@@ -12,6 +12,9 @@ class CheckoutPage extends StatefulWidget {
 class _CheckoutPageState extends State<CheckoutPage> {
   @override
   Widget build(BuildContext context) {
+    // Total harga
+    int total = 26500 * widget.ticket.seats.length;
+
     return WillPopScope(
         onWillPop: () async {
           context.bloc<PageBloc>().add(GoToSelectSeatPage(widget.ticket));
@@ -125,7 +128,280 @@ class _CheckoutPageState extends State<CheckoutPage> {
                                   ],
                                 )
                               ],
-                            )
+                            ),
+                            Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: defaultMargin),
+                                child: Divider(
+                                  color: Color(0xFFE4E4E4E4),
+                                  thickness: 1,
+                                )),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Order ID",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    Text(widget.ticket.bookingCode,
+                                        style: whiteNumberTextFont.copyWith(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400))
+                                  ]),
+                            ),
+                            SizedBox(
+                              height: 9,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Cinema",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    SizedBox(
+                                      // supaya gk kepanjangan nma dikasih sizedbox
+                                      width: MediaQuery.of(context).size.width *
+                                          0.55,
+                                      child: Text(widget.ticket.theater.name,
+                                          textAlign: TextAlign.end,
+                                          style: whiteNumberTextFont.copyWith(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400)),
+                                    )
+                                  ]),
+                            ),
+                            SizedBox(
+                              height: 9,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Date & Time",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    Text(widget.ticket.time.dateAndTime,
+                                        style: whiteNumberTextFont.copyWith(
+                                            color: Colors.black,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400))
+                                  ]),
+                            ),
+                            SizedBox(
+                              height: 9,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Seat No",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    SizedBox(
+                                      // supaya gk kepanjangan nma dikasih sizedbox
+                                      width: MediaQuery.of(context).size.width *
+                                          0.55,
+                                      child: Text(widget.ticket.seatsInString,
+                                          textAlign: TextAlign.end,
+                                          style: whiteNumberTextFont.copyWith(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400)),
+                                    )
+                                  ]),
+                            ),
+                            SizedBox(
+                              width: 9,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Price",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    SizedBox(
+                                      // supaya gk kepanjangan nma dikasih sizedbox
+                                      width: MediaQuery.of(context).size.width *
+                                          0.55,
+                                      child: Text(
+                                          "IDR 25.000 x ${widget.ticket.seats.length}",
+                                          textAlign: TextAlign.end,
+                                          style: whiteNumberTextFont.copyWith(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400)),
+                                    )
+                                  ]),
+                            ),
+                            SizedBox(
+                              width: 9,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Fee",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    SizedBox(
+                                      // supaya gk kepanjangan nma dikasih sizedbox
+                                      width: MediaQuery.of(context).size.width *
+                                          0.55,
+                                      child: Text(
+                                          "IDR 1.500 x ${widget.ticket.seats.length}",
+                                          textAlign: TextAlign.end,
+                                          style: whiteNumberTextFont.copyWith(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w400)),
+                                    )
+                                  ]),
+                            ),
+                            SizedBox(
+                              width: 9,
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Total",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    SizedBox(
+                                      // supaya gk kepanjangan nma dikasih sizedbox
+                                      width: MediaQuery.of(context).size.width *
+                                          0.55,
+                                      child: Text(
+                                          NumberFormat.currency(
+                                                  locale: 'id_ID',
+                                                  decimalDigits: 0,
+                                                  symbol: 'IDR ')
+                                              .format(total),
+                                          textAlign: TextAlign.end,
+                                          style: whiteNumberTextFont.copyWith(
+                                              color: Colors.black,
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    )
+                                  ]),
+                            ),
+
+                            Container(
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 20, horizontal: defaultMargin),
+                                child: Divider(
+                                  color: Color(0xFFE4E4E4E4),
+                                  thickness: 1,
+                                )),
+
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: defaultMargin),
+                              child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: <Widget>[
+                                    Text("Your Wallet",
+                                        style: greyTextFont.copyWith(
+                                            fontSize: 16)),
+                                    SizedBox(
+                                      // supaya gk kepanjangan nma dikasih sizedbox
+                                      width: MediaQuery.of(context).size.width *
+                                          0.55,
+                                      child: Text(
+                                          NumberFormat.currency(
+                                                  locale: 'id_ID',
+                                                  decimalDigits: 0,
+                                                  symbol: 'IDR ')
+                                              .format(user.balance),
+                                          textAlign: TextAlign.end,
+                                          style: whiteNumberTextFont.copyWith(
+                                              color: user.balance >= total
+                                                  ? Color(0xFF3E9D9D)
+                                                  : Color(0xFFFF5C83),
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w600)),
+                                    )
+                                  ]),
+                            ),
+
+                            Container(
+                                width: 250,
+                                height: 46,
+                                margin: EdgeInsets.only(top: 36, bottom: 50),
+                                // ignore: deprecated_member_use
+                                child: RaisedButton(
+                                  elevation: 0,
+                                  color: user.balance >= total
+                                      ? Color(0xFF3E9D9D)
+                                      : mainColor,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8)),
+                                  child: Text(
+                                      user.balance >= total
+                                          ? "Checkout Now"
+                                          : "Top Up My Wallet",
+                                      style:
+                                          whiteTextFont.copyWith(fontSize: 16)),
+                                  onPressed: () {
+                                    if (user.balance >= total) {
+                                      // * Uang Cukup
+                                    } else {
+                                      // * Uang tidak cukup
+                                    }
+                                  },
+                                )
+                                // ElevatedButton(
+                                //     style: ElevatedButton.styleFrom(
+                                //       shape: RoundedRectangleBorder(
+                                //           borderRadius: BorderRadius.circular(8)),
+                                //       onPrimary: user.balance >= total
+                                //           ? Color(0xFF3E9D9D)
+                                //           : mainColor,
+                                //     ),
+                                //     child: Text(
+                                //       "Continue to Book",
+                                //       style: whiteTextFont.copyWith(fontSize: 16),
+                                //     ),
+                                //     onPressed: () {}),
+                                )
                           ],
                         );
                       })
