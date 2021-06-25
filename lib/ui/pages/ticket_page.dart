@@ -14,7 +14,20 @@ class _TicketPageState extends State<TicketPage> {
         body: Stack(
       children: <Widget>[
         // note: CONTENT
-        Container(),
+        BlocBuilder<TicketBloc, TicketState>(
+            builder: (_, ticketState) => Container(
+                  margin: EdgeInsets.symmetric(horizontal: defaultMargin),
+                  // tiket yg diberikan trgantung isExpiredTickets
+                  child: TicketViewer(isExpiredTickets
+                      ? ticketState.tickets
+                          .where(
+                              (ticket) => ticket.time.isBefore(DateTime.now()))
+                          .toList()
+                      : ticketState.tickets
+                          .where(
+                              (ticket) => !ticket.time.isBefore(DateTime.now()))
+                          .toList()),
+                )),
         // note: HEADER
         Container(
           height: 113,
@@ -127,4 +140,75 @@ class HeaderClipper extends CustomClipper<Path> {
 
   @override
   bool shouldReclip(CustomClipper<Path> oldClipper) => false;
+}
+
+// for content
+class TicketViewer extends StatelessWidget {
+  // pnya kumpulan ticket
+  final List<Ticket> tickets;
+
+  TicketViewer(this.tickets);
+
+  @override
+  Widget build(BuildContext context) {
+    var sortedTickets = tickets;
+    sortedTickets
+        .sort((ticket1, ticket2) => ticket1.time.compareTo(ticket2.time));
+
+    return ListView.builder(
+        itemCount: sortedTickets.length,
+        itemBuilder: (_, index) => Container(
+              // top 30 biar dibawah header ungu
+              margin: EdgeInsets.only(top: index == 0 ? 133 : 20),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                      width: 70,
+                      height: 90,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          image: DecorationImage(
+                              image: NetworkImage(imageBaseURL +
+                                  'w500' +
+                                  sortedTickets[index].movieDetail.posterPath),
+                              fit: BoxFit.cover))),
+                  SizedBox(
+                    width: 16,
+                  ),
+                  SizedBox(
+                      width: MediaQuery.of(context).size.width -
+                          2 * defaultMargin -
+                          70 -
+                          16,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            sortedTickets[index].movieDetail.title,
+                            style: blackTextFont.copyWith(fontSize: 18),
+                            maxLines: 2,
+                            overflow: TextOverflow.clip,
+                          ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            sortedTickets[index].movieDetail.genresAndLanguage,
+                            style: greyTextFont.copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w400),
+                          ),
+                          SizedBox(
+                            height: 6,
+                          ),
+                          Text(
+                            sortedTickets[index].theater.name,
+                            style: greyTextFont.copyWith(
+                                fontSize: 12, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ))
+                ],
+              ),
+            ));
+  }
 }
