@@ -37,12 +37,7 @@ class _MainPageState extends State<MainPage> {
                   bottomNavBarIndex = index;
                 });
               },
-              children: <Widget>[
-                MoviePage(),
-                Center(
-                  child: Text("MyTickets"),
-                )
-              ],
+              children: <Widget>[MoviePage(), TicketPage()],
             ),
             createCustomButtomNavBar(),
             Align(
