@@ -52,6 +52,16 @@ class Wrapper extends StatelessWidget {
                                                     : (pageState
                                                             is OnProfilePage)
                                                         ? ProfilePage()
-                                                        : MainPage());
+                                                        : (pageState
+                                                                is OnMainPage)
+                                                            ? MainPage(
+                                                                bottomNavBarIndex:
+                                                                    pageState
+                                                                        .bottomNavBarIndex,
+                                                                isExpired:
+                                                                    pageState
+                                                                        .isExpired,
+                                                              )
+                                                            : Container());
   }
 }
