@@ -29,14 +29,15 @@ class WalletPage extends StatelessWidget {
                         },
                         child: Icon(Icons.arrow_back, color: Colors.black),
                       ),
-                      Column(
-                        children: <Widget>[
-                          Text(
-                            "My Wallet",
-                            style: blackTextFont.copyWith(fontSize: 20),
-                          ),
-                          // note: ID CARD
-                          Container(
+                      BlocBuilder<UserBloc, UserState>(
+                        builder: (_, userState) => Column(
+                          children: <Widget>[
+                            Text(
+                              "My Wallet",
+                              style: blackTextFont.copyWith(fontSize: 20),
+                            ),
+                            // note: ID CARD
+                            Container(
                               height: 185,
                               width: double.infinity,
                               margin: EdgeInsets.symmetric(vertical: 20),
@@ -49,8 +50,113 @@ class WalletPage extends StatelessWidget {
                                         blurRadius: 10,
                                         spreadRadius: 0,
                                         offset: Offset(0, 5))
-                                  ]))
-                        ],
+                                  ]),
+                              child: Stack(
+                                children: <Widget>[
+                                  ClipPath(
+                                    clipper: CardReflectionClipper(),
+                                    child: Container(
+                                        height: 185,
+                                        width: double.infinity,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(15),
+                                            gradient: LinearGradient(
+                                                begin: Alignment.bottomRight,
+                                                end: Alignment.topLeft,
+                                                colors: [
+                                                  Colors.white.withOpacity(0.1),
+                                                  Colors.white.withOpacity(0)
+                                                ]))),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(20),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        // note: LINGKARAN 2 ID CARD
+                                        Row(
+                                          children: <Widget>[
+                                            Container(
+                                              width: 18,
+                                              height: 18,
+                                              margin: EdgeInsets.only(right: 4),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Color(0xFFFFF2CB)),
+                                            ),
+                                            Container(
+                                              width: 30,
+                                              height: 30,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: accentColor2),
+                                            )
+                                          ],
+                                        ),
+                                        // note: NOMINAL SALDO
+                                        Text(
+                                            NumberFormat.currency(
+                                                    locale: 'id_ID',
+                                                    symbol: 'IDR ',
+                                                    decimalDigits: 0)
+                                                .format(
+                                                    (userState as UserLoaded)
+                                                        .user
+                                                        .balance),
+                                            style: whiteNumberTextFont.copyWith(
+                                                fontSize: 28,
+                                                fontWeight: FontWeight.w600)),
+                                        // note: NAMA & ID
+                                        Row(
+                                          children: <Widget>[
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  "Card Holder",
+                                                  style: whiteTextFont.copyWith(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                        (userState
+                                                                as UserLoaded)
+                                                            .user
+                                                            .name,
+                                                        style: whiteTextFont
+                                                            .copyWith(
+                                                                fontSize: 12)),
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 14,
+                                                      width: 14,
+                                                      child: Image.asset(
+                                                          'assets/ic_check.png'),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       )
                     ],
                   )
@@ -61,4 +167,21 @@ class WalletPage extends StatelessWidget {
       ),
     );
   }
+}
+
+//untuk memotong warna diagonal ID Card pake clipath
+class CardReflectionClipper extends CustomClipper<Path> {
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(size.width, 0);
+    path.lineTo(size.width, size.height - 15);
+    path.close();
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
 }
