@@ -20,7 +20,7 @@ class _TopUpPageState extends State<TopUpPage> {
 
     //hitung panjang card
     double cardWidth =
-        (MediaQuery.of(context).size.width - 2 * defaultMargin - 40) / 3;
+        (MediaQuery.of(context).size.width - 2 * defaultMargin - 30) / 3;
 
     return WillPopScope(
       onWillPop: () async {
@@ -99,8 +99,8 @@ class _TopUpPageState extends State<TopUpPage> {
                       ),
                     ),
                     Wrap(
-                      spacing: 20, //jrak horizontal
-                      runSpacing: 14,
+                      spacing: 15, //jrak horizontal
+                      runSpacing: 15,
                       children: <Widget>[
                         makeMoneyCard(amount: 50000, width: cardWidth),
                         makeMoneyCard(amount: 100000, width: cardWidth),
@@ -108,9 +108,9 @@ class _TopUpPageState extends State<TopUpPage> {
                         makeMoneyCard(amount: 200000, width: cardWidth),
                         makeMoneyCard(amount: 250000, width: cardWidth),
                         makeMoneyCard(amount: 500000, width: cardWidth),
-                        makeMoneyCard(amount: 100000, width: cardWidth),
-                        makeMoneyCard(amount: 250000, width: cardWidth),
-                        makeMoneyCard(amount: 500000, width: cardWidth),
+                        makeMoneyCard(amount: 1000000, width: cardWidth),
+                        makeMoneyCard(amount: 2500000, width: cardWidth),
+                        makeMoneyCard(amount: 5000000, width: cardWidth),
                       ],
                     )
                   ]),
