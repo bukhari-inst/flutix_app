@@ -112,6 +112,48 @@ class _TopUpPageState extends State<TopUpPage> {
                         makeMoneyCard(amount: 2500000, width: cardWidth),
                         makeMoneyCard(amount: 5000000, width: cardWidth),
                       ],
+                    ),
+                    SizedBox(
+                      height: 100,
+                    ),
+                    SizedBox(
+                      width: 250,
+                      height: 46,
+                      child: BlocBuilder<UserBloc, UserState>(
+                        // ignore: deprecated_member_use
+                        builder: (_, userState) => RaisedButton(
+                            elevation: 0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Text(
+                              "Top Up My Wallet",
+                              style: whiteTextFont.copyWith(
+                                  fontSize: 16,
+                                  color: (selectedAmount > 0)
+                                      ? Colors.white
+                                      : Color(0xFFBEBEBE)),
+                            ),
+                            disabledColor: Color(0xFFE4E4E4),
+                            color: Color(0xFF3E9D9D),
+                            onPressed: (selectedAmount > 0)
+                                ? () {
+                                    context.bloc<PageBloc>().add(GoToSuccessPage(
+                                        null,
+                                        MovieidTransaction(
+                                            userID: (userState as UserLoaded)
+                                                .user
+                                                .id,
+                                            title: "Top Up Wallet",
+                                            amount: selectedAmount,
+                                            subtitle:
+                                                "${DateTime.now().dayName} ${DateTime.now().day} ${DateTime.now().montName} ${DateTime.now().year}",
+                                            time: DateTime.now())));
+                                  }
+                                : null),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 100,
                     )
                   ]),
                 )
