@@ -58,15 +58,18 @@ class Wrapper extends StatelessWidget {
                                                                 pageState
                                                                     .pageEvent)
                                                             : (pageState
-                                                                    is OnMainPage)
-                                                                ? MainPage(
-                                                                    bottomNavBarIndex:
-                                                                        pageState
-                                                                            .bottomNavBarIndex,
-                                                                    isExpired:
-                                                                        pageState
-                                                                            .isExpired,
-                                                                  )
-                                                                : Container());
+                                                                    is OnWalletPage)
+                                                                ? WalletPage(
+                                                                    pageState
+                                                                        .pageEvent)
+                                                                : (pageState
+                                                                        is OnMainPage)
+                                                                    ? MainPage(
+                                                                        bottomNavBarIndex:
+                                                                            pageState.bottomNavBarIndex,
+                                                                        isExpired:
+                                                                            pageState.isExpired,
+                                                                      )
+                                                                    : Container());
   }
 }
