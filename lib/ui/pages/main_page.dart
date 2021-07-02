@@ -63,8 +63,11 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                     onPressed: () {
-                      context.bloc<UserBloc>().add(SignOut());
-                      AuthServices.signOut();
+                      context
+                          .bloc<PageBloc>()
+                          .add(GoToTopUpPage(GoToMainPage()));
+                      // context.bloc<UserBloc>().add(SignOut());
+                      // AuthServices.signOut();
                     }),
               ),
             )
