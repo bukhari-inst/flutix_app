@@ -146,6 +146,45 @@ class WalletPage extends StatelessWidget {
                                                   ],
                                                 )
                                               ],
+                                            ),
+                                            SizedBox(width: 30),
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                Text(
+                                                  "Card ID",
+                                                  style: whiteTextFont.copyWith(
+                                                      fontSize: 10,
+                                                      fontWeight:
+                                                          FontWeight.w300),
+                                                ),
+                                                Row(
+                                                  children: <Widget>[
+                                                    Text(
+                                                        (userState
+                                                                as UserLoaded)
+                                                            .user
+                                                            .id
+                                                            .substring(0, 10)
+                                                            .toUpperCase(),
+                                                        style:
+                                                            whiteNumberTextFont
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        12)),
+                                                    SizedBox(
+                                                      width: 4,
+                                                    ),
+                                                    SizedBox(
+                                                      height: 14,
+                                                      width: 14,
+                                                      child: Image.asset(
+                                                          'assets/ic_check.png'),
+                                                    )
+                                                  ],
+                                                )
+                                              ],
                                             )
                                           ],
                                         )
@@ -154,7 +193,32 @@ class WalletPage extends StatelessWidget {
                                   )
                                 ],
                               ),
-                            )
+                            ),
+                            // note: CONTENT
+                            Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "Recent Transaction",
+                                  style: blackTextFont,
+                                )),
+                            SizedBox(height: 12),
+                            FutureBuilder(
+                                future:
+                                    MovieidTransactionServices.getTransaction(
+                                        (userState as UserLoaded).user.id),
+                                builder: (_, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return generateTransactionlist(
+                                        snapshot.data,
+                                        MediaQuery.of(context).size.width -
+                                            2 * defaultMargin);
+                                  } else {
+                                    return SpinKitFadingCircle(
+                                      size: 50,
+                                      color: mainColor,
+                                    );
+                                  }
+                                })
                           ],
                         ),
                       )
@@ -165,6 +229,22 @@ class WalletPage extends StatelessWidget {
           // note: BUTTON
         ]),
       ),
+    );
+  }
+
+  // method generateTransactionlist
+  Column generateTransactionlist(
+      List<MovieidTransaction> transaction, double width) {
+    // mengurutkan transaksi berdasarkan waktu
+    transaction.sort((transaction1, transaction2) =>
+        transaction2.time.compareTo(transaction1.time));
+    return Column(
+      children: transaction
+          .map((transaction) => Padding(
+                padding: EdgeInsets.only(bottom: 12),
+                child: TransactionCard(transaction, width),
+              ))
+          .toList(),
     );
   }
 }
