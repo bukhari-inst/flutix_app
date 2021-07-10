@@ -16,6 +16,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:random_string/random_string.dart';
 import 'package:flutix_app/extensions/extensions.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 
 part 'sign_in_page.dart';
 part 'wrapper.dart';
@@ -35,3 +37,4 @@ part 'ticket_detail_page.dart';
 part 'profile_page.dart';
 part 'topup_page.dart';
 part 'wallet_page.dart';
+part 'edit_profile_page.dart';

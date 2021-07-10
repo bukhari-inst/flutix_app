@@ -63,13 +63,18 @@ class Wrapper extends StatelessWidget {
                                                                     pageState
                                                                         .pageEvent)
                                                                 : (pageState
-                                                                        is OnMainPage)
-                                                                    ? MainPage(
-                                                                        bottomNavBarIndex:
-                                                                            pageState.bottomNavBarIndex,
-                                                                        isExpired:
-                                                                            pageState.isExpired,
-                                                                      )
-                                                                    : Container());
+                                                                        is OnEditProfilePage)
+                                                                    ? EditProfilePage(
+                                                                        pageState
+                                                                            .user)
+                                                                    : (pageState
+                                                                            is OnMainPage)
+                                                                        ? MainPage(
+                                                                            bottomNavBarIndex:
+                                                                                pageState.bottomNavBarIndex,
+                                                                            isExpired:
+                                                                                pageState.isExpired,
+                                                                          )
+                                                                        : Container());
   }
 }
