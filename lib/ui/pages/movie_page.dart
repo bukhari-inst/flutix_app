@@ -68,21 +68,33 @@ class MoviePage extends StatelessWidget {
                         width: MediaQuery.of(context).size.width -
                             2 * defaultMargin -
                             78,
-                        child: Text(
-                          userState.user.name,
-                          style: whiteTextFont.copyWith(fontSize: 18),
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
+                        child: GestureDetector(
+                          onTap: () {
+                            context.bloc<PageBloc>().add(GoToProfilePage());
+                          },
+                          child: Text(
+                            userState.user.name,
+                            style: whiteTextFont.copyWith(fontSize: 18),
+                            maxLines: 1,
+                            overflow: TextOverflow.clip,
+                          ),
                         ),
                       ),
-                      Text(
-                          NumberFormat.currency(
-                                  locale: "id_ID",
-                                  decimalDigits: 0,
-                                  symbol: "IDR ")
-                              .format(userState.user.balance),
-                          style: yellowNumberTextFont.copyWith(
-                              fontSize: 14, fontWeight: FontWeight.w400))
+                      GestureDetector(
+                        onTap: () {
+                          context
+                              .bloc<PageBloc>()
+                              .add(GoToWalletPage(GoToMainPage()));
+                        },
+                        child: Text(
+                            NumberFormat.currency(
+                                    locale: "id_ID",
+                                    decimalDigits: 0,
+                                    symbol: "IDR ")
+                                .format(userState.user.balance),
+                            style: yellowNumberTextFont.copyWith(
+                                fontSize: 14, fontWeight: FontWeight.w400)),
+                      )
                     ],
                   )
                 ],

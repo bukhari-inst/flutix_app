@@ -1,8 +1,9 @@
 part of 'pages.dart';
 
 class MainPage extends StatefulWidget {
-  final int bottomNavBarIndex;
-  final bool isExpired;
+  final int bottomNavBarIndex; //
+  final bool
+      isExpired; // untk mnntukan klo pndah ke ticket page yg mau ditampilkan page yg mana
 
   MainPage({this.bottomNavBarIndex = 0, this.isExpired = false});
 
@@ -18,7 +19,7 @@ class _MainPageState extends State<MainPage> {
   void initState() {
     super.initState();
 
-    bottomNavBarIndex = 0;
+    bottomNavBarIndex = widget.bottomNavBarIndex;
     pageController = PageController(initialPage: bottomNavBarIndex);
   }
 
@@ -42,7 +43,12 @@ class _MainPageState extends State<MainPage> {
                   bottomNavBarIndex = index;
                 });
               },
-              children: <Widget>[MoviePage(), TicketPage()],
+              children: <Widget>[
+                MoviePage(),
+                TicketPage(
+                  isExpiredTicket: widget.isExpired,
+                )
+              ],
             ),
             createCustomButtomNavBar(),
             Align(
@@ -109,7 +115,7 @@ class _MainPageState extends State<MainPage> {
                         height: 20,
                         child: Image.asset((bottomNavBarIndex == 0)
                             ? "assets/ic_movies.png"
-                            : "assets/ic_movies_gray.png"),
+                            : "assets/ic_movie_grey.png"),
                       )),
                   BottomNavigationBarItem(
                       // ignore: deprecated_member_use

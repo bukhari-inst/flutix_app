@@ -15,6 +15,11 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController passwordController = TextEditingController();
   TextEditingController retypePasswordController = TextEditingController();
 
+  bool isNameValid = false;
+  bool isEmailValid = false;
+  bool isPasswordValid = false;
+  bool isRetypePasswordValid = false;
+
   @override
   void initState() {
     super.initState();
@@ -120,6 +125,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 36,
                   ),
                   TextField(
+                    // validasi nama
+                    onChanged: (text) {
+                      setState(() {
+                        isNameValid = text.length >= 1;
+                      });
+                    },
                     controller: nameController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -131,6 +142,11 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 16,
                   ),
                   TextField(
+                    onChanged: (text) {
+                      setState(() {
+                        isEmailValid = EmailValidator.validate(text);
+                      });
+                    },
                     controller: emailController,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
@@ -142,6 +158,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 16,
                   ),
                   TextField(
+                    // validasi password
+                    onChanged: (text) {
+                      setState(() {
+                        isPasswordValid = text.length >= 6;
+                      });
+                    },
                     controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -154,6 +176,12 @@ class _SignUpPageState extends State<SignUpPage> {
                     height: 16,
                   ),
                   TextField(
+                    // validasi password
+                    onChanged: (text) {
+                      setState(() {
+                        isRetypePasswordValid = text.length >= 6;
+                      });
+                    },
                     controller: retypePasswordController,
                     obscureText: true,
                     decoration: InputDecoration(
@@ -167,7 +195,12 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                   FloatingActionButton(
                       child: Icon(Icons.arrow_forward),
-                      backgroundColor: mainColor,
+                      backgroundColor: isNameValid &&
+                              isEmailValid &&
+                              isPasswordValid &&
+                              isRetypePasswordValid
+                          ? mainColor
+                          : Color(0xFFE4E4E4),
                       elevation: 0,
                       onPressed: () {
                         if (!(nameController.text.trim() != "" &&

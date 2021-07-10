@@ -40,8 +40,8 @@ class _SignInPageState extends State<SignInPage> {
                       height: 30,
                     ),
                     SizedBox(
-                      height: 70,
-                      child: Image.asset("assets/logo.png"),
+                      height: 90,
+                      child: Image.asset("assets/logo1.png"),
                     ),
                     Container(
                       margin: EdgeInsets.only(top: 70, bottom: 40),

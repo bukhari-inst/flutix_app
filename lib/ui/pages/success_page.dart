@@ -66,7 +66,9 @@ class SuccessPage extends StatelessWidget {
                                       .add(GoToWalletPage(GoToMainPage()));
                                 } else {
                                   // todo: Go To Ticket page
-
+                                  context
+                                      .bloc<PageBloc>()
+                                      .add(GoToMainPage(bottomNavBarIndex: 1));
                                 }
                               }),
                         ),

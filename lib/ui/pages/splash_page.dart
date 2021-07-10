@@ -12,9 +12,10 @@ class SplashPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             Container(
-              height: 136,
+              height: 200,
               decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage("assets/logo.png"))),
+                  image:
+                      DecorationImage(image: AssetImage("assets/logo1.png"))),
             ),
             Container(
               margin: EdgeInsets.only(top: 70, bottom: 16),
